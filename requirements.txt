@@ -1,0 +1,5 @@
+python-telegram-bot>=22.6,<23
+asyncssh>=2.14,<3
+pyte>=0.8.2,<0.9
+cryptography>=42
+tzdata

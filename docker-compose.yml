@@ -1,0 +1,28 @@
+services:
+  bot:
+    image: ${ATX_IMAGE:-ghcr.io/OWNER/REPO:latest}
+    container_name: atronixx-core
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/data
+    networks: [atronixx_net]
+    # هیچ پورتی به بیرون باز نمی‌شود (long polling) و شبکه از بقیه‌ی سرویس‌ها جداست
+    mem_limit: 220m
+    memswap_limit: 220m
+    cpus: "0.5"
+    pids_limit: 128
+    security_opt: ["no-new-privileges:true"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  atronixx_net:
+    name: atronixx_core_net
+    driver: bridge
