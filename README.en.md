@@ -112,9 +112,6 @@ python3 tests/scan_strings.py       # every string key exists and every placehol
 PYTHONPATH=tests/stubs:. python3 tests/test_routing.py   # every button maps to a registered handler
 ```
 
-These cover internal logic with certainty; real Telegram/SSH connectivity is
-covered by the manual checklist in [`TESTING.md`](TESTING.md).
-
 ## 📜 License & responsibility
 
 MIT-licensed. This bot connects to servers *you* add — you're responsible for
