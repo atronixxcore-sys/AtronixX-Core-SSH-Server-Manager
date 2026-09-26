@@ -2,11 +2,10 @@
 
 # 🛰 AtronixX-Core
 
-### Termius, reborn as a Telegram bot.
+### ترمیوس، این‌بار داخل تلگرام.
 
-A full SSH terminal, file manager, and server monitor for your infrastructure —
-running live inside Telegram. Dockerized, sandboxed, and built for servers that
-already have other things running on them.
+یک ترمینال SSH زنده، مدیر فایل و مانیتور سرور — مستقیم داخل تلگرام.
+کاملاً داکرایز‌شده، ایزوله، و ساخته‌شده برای سرورهایی که از قبل چیزهای دیگه‌ای روشونه.
 
 [![Docker](https://img.shields.io/badge/docker-ready-2496ED?logo=docker&logoColor=white)](https://github.com/atronixxcore-sys/AtronixX-Core-SSH-Server-Manager/pkgs/container/atronixx-core-ssh-server-manager)
 [![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
@@ -15,40 +14,41 @@ already have other things running on them.
 
 📡 [@AtronixX_Core](https://t.me/AtronixX_Core) &nbsp;·&nbsp; 💬 [@AtronixX_Support](https://t.me/AtronixX_Support)
 
+**[🇮🇷 فارسی](README.md)** &nbsp;|&nbsp; **[🇬🇧 English](README.en.md)**
+
 </div>
 
 ---
 
-## ✨ What it does
+## ✨ امکانات
 
-- ⚡ **Live SSH terminal** — a real PTY session rendered live inside a Telegram message, with a control pad (Ctrl+C, Tab, arrows, clear) and buttery-smooth updates.
-- 📁 **File manager (SFTP)** — browse, upload, download, create folders, delete — all from chat.
-- 📊 **Server monitor** — CPU, RAM, disk, uptime, at a tap.
-- ⚡ **Snippets** — save your go-to commands and fire them with one button.
-- 🗂 **Groups & favorites** — organize servers your way.
-- 👑 **Full admin panel** — user management, ban/unban, broadcast messages, forced channel-join, live session control, and an activity log — all inside Telegram.
-- 🎟 **Free or subscription mode** — open access for everyone, or admin-gated access with per-user expiry and server limits.
-- 💾 **Encrypted backup & restore** — AES-256 encrypted backups, automatic or on-demand, restorable from a single file.
-- 🌐 **Persian & English**, switchable per user.
-- 🐳 **Fully containerized** — no open ports, a dedicated Docker network, capped CPU/RAM, and a read-only filesystem, so it sits in its own corner without touching anything else on your server.
+- ⚡ **ترمینال SSH زنده** — یک نشست PTY واقعی که داخل یک پیام تلگرام زنده رندر می‌شه، با کنترل‌پد (Ctrl+C، Tab، جهت‌ها، Enter) و آپدیت نرم و روان.
+- 📁 **مدیریت فایل (SFTP)** — مرور، آپلود، دانلود، ساخت پوشه، حذف — همه از داخل چت.
+- 📊 **مانیتور سرور** — CPU، RAM، دیسک، آپتایم، با یک لمس.
+- ⚡ **اسنیپت‌ها** — دستورهای پرکاربردت رو ذخیره کن و با یک دکمه اجرا کن.
+- 🗂 **گروه‌بندی و علاقه‌مندی‌ها** — سرورهات رو هرجور خودت می‌خوای مرتب کن.
+- 👑 **پنل مدیریت کامل** — مدیریت کاربران، بن/رفع‌بن، پیام همگانی، جوین اجباری کانال، کنترل نشست‌های زنده و لاگ فعالیت — همه داخل تلگرام.
+- 🎟 **مود رایگان یا اشتراکی** — دسترسی آزاد برای همه، یا دسترسی کنترل‌شده با تاریخ انقضا و سقف تعداد سرور برای هر کاربر.
+- 💾 **بکاپ و ریستور رمزگذاری‌شده** — بکاپ‌های رمزنگاری‌شده با AES-256، خودکار یا دستی، قابل بازگردانی با یک فایل.
+- 🌐 **فارسی و انگلیسی**، قابل تغییر برای هر کاربر.
+- 🐳 **کاملاً کانتینری** — بدون پورت باز، شبکه‌ی داکر اختصاصی، سقف CPU/RAM، و فایل‌سیستم فقط-خواندنی؛ طوری که توی یه گوشه‌ی خودش کار می‌کنه بدون این‌که به بقیه‌ی سرور دست بزنه.
 
-## 🔐 Security highlights
+## 🔐 نکات امنیتی
 
-- Server credentials (passwords/SSH keys) are encrypted with **AES-256-GCM**; the master key lives in its own file, never in the database.
-- Every outbound SSH connection is checked against private/internal/loopback/cloud-metadata ranges before it's made — no pivoting into your own infrastructure.
-- Host keys are verified TOFU-style, with an explicit warning if a server's key ever changes.
-- Runs as a non-root user, with a read-only root filesystem and no exposed ports.
+- پسورد و کلید SSH سرورها با **AES-256-GCM** رمزنگاری می‌شن؛ کلید اصلی توی فایل جدای خودش می‌مونه، نه داخل دیتابیس.
+- قبل از هر اتصال، مقصد در برابر رنج‌های داخلی/خصوصی/لوپ‌بک/متادیتای ابری چک می‌شه — امکان نفوذ به زیرساخت خودت از داخل بات وجود نداره.
+- کلید میزبان به روش TOFU تأیید می‌شه، با هشدار صریح اگه کلید یه سرور تغییر کنه.
+- با کاربر غیر-root، فایل‌سیستم فقط-خواندنی، و بدون هیچ پورت بازی اجرا می‌شه.
 
-## 🚀 Install
+## 🚀 نصب
 
-One command, on a fresh Ubuntu/Debian server:
+یک دستور، روی یک سرور Ubuntu/Debian تازه:
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/atronixxcore-sys/AtronixX-Core-SSH-Server-Manager/main/install.sh)
 ```
 
-It installs Docker if needed, asks for your bot token, your numeric Telegram ID,
-and a backup password — and that's it. From then on, manage everything with:
+اگه لازم باشه داکر رو نصب می‌کنه، توکن بات، آیدی عددی تلگرامت، و یه رمز بکاپ می‌پرسه — همین. از اون به بعد همه‌چیز رو با این دستور مدیریت کن:
 
 ```bash
 AX-Manager
@@ -57,69 +57,65 @@ AX-Manager
 <div align="center">
 
 ```
- █████╗ ██╗  ██╗
-██╔══██╗╚██╗██╔╝
-███████║ ╚███╔╝
-██╔══██║ ██╔██╗
-██║  ██║██╔╝ ██╗
-╚═╝  ╚═╝╚═╝  ╚═╝
-SSH SERVER MANAGER · powered by AtronixX
+ █████╗ ████████╗██████╗  ██████╗ ███╗   ██╗██╗██╗  ██╗██╗  ██╗
+██╔══██╗╚══██╔══╝██╔══██╗██╔═══██╗████╗  ██║██║╚██╗██╔╝╚██╗██╔╝
+███████║   ██║   ██████╔╝██║   ██║██╔██╗ ██║██║ ╚███╔╝  ╚███╔╝
+██╔══██║   ██║   ██╔══██╗██║   ██║██║╚██╗██║██║ ██╔██╗  ██╔██╗
+██║  ██║   ██║   ██║  ██║╚██████╔╝██║ ╚████║██║██╔╝ ██╗██╔╝ ██╗
+╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+SSH SERVER MANAGER · CLI: AX-Manager
 ```
 
 </div>
 
-An interactive menu: install, start/stop/restart, update, view logs, edit
-settings, check status, or uninstall — no need to remember flags.
+یک منوی تعاملی: نصب، استارت/استاپ/ری‌استارت، آپدیت، مشاهده‌ی لاگ، ویرایش تنظیمات، وضعیت، یا حذف کامل — بدون نیاز به به‌خاطر سپردن هیچ فلگی.
 
-## ⚙️ Configuration
+## ⚙️ پیکربندی
 
-All settings live in `.env` inside the install directory and can be edited
-anytime via `AX-Manager` → *Edit settings*.
+همه‌ی تنظیمات توی فایل `.env` داخل پوشه‌ی نصب هستن و هر وقت خواستی از طریق `AX-Manager` → *Edit settings* قابل ویرایشن.
 
-| Variable | What it does |
+| متغیر | کاربرد |
 |---|---|
-| `BOT_TOKEN` | Your bot's token from [@BotFather](https://t.me/BotFather) |
-| `ADMIN_ID` | Your numeric Telegram ID — the bot's only admin |
-| `SUPPORT_USERNAME` | Shown to users without an active subscription |
-| `BACKUP_PASSPHRASE` | Encrypts automatic backups (AES-256) — keep it safe, it can't be recovered |
-| `TZ` | Timezone (default `Asia/Tehran`) |
-| `BACKUP_INTERVAL_HOURS` | How often automatic backups are sent (default `24`) |
-| `MAX_LIVE_SESSIONS` | Concurrent live terminal cap (also adjustable from the admin panel) |
-| `IDLE_TIMEOUT_MIN` / `MAX_SESSION_HOURS` | Idle timeout and max session lifetime |
-| `BLOCKED_IPS` | Extra IPs to block outbound (comma-separated) |
+| `BOT_TOKEN` | توکن بات از [@BotFather](https://t.me/BotFather) |
+| `ADMIN_ID` | آیدی عددی تلگرام خودت — تنها ادمین بات |
+| `SUPPORT_USERNAME` | به کاربران بدون اشتراک فعال نشون داده می‌شه |
+| `BACKUP_PASSPHRASE` | رمز بکاپ‌های خودکار (AES-256) — جایی امن نگهش دار، قابل بازیابی نیست |
+| `TZ` | منطقه‌ی زمانی (پیش‌فرض `Asia/Tehran`) |
+| `BACKUP_INTERVAL_HOURS` | فاصله‌ی بکاپ خودکار (پیش‌فرض `24`) |
+| `MAX_LIVE_SESSIONS` | سقف نشست ترمینال هم‌زمان (از پنل ادمین هم قابل تغییره) |
+| `IDLE_TIMEOUT_MIN` / `MAX_SESSION_HOURS` | تایم‌اوت بیکاری و حداکثر عمر هر نشست |
+| `BLOCKED_IPS` | آیپی‌های اضافه برای بلاک (با کاما جدا) |
 
-## 🧱 Architecture
+## 🧱 معماری
 
 ```
-config.py            settings loaded from .env
-main.py              entry point, handler registration
-core/                encryption, SSRF-safe target checks, the SSH/SFTP engine,
-                      session registry, encrypted backups, background housekeeping
-database/db.py       SQLite (WAL mode)
-handlers/            bot logic: access gate, servers, terminal, SFTP, tools, admin
-locales/             Persian / English strings
-scripts/             AX-Manager, the install & control script
+config.py            تنظیمات از .env
+main.py              نقطه‌ی ورود، ثبت هندلرها
+core/                رمزنگاری، بررسی امن مقصد (ضد SSRF)، موتور SSH/SFTP،
+                      ثبت نشست‌ها، بکاپ رمزگذاری‌شده، کارهای پس‌زمینه
+database/db.py       SQLite (حالت WAL)
+handlers/            منطق بات: دروازه‌ی دسترسی، سرورها، ترمینال، SFTP، ابزارها، ادمین
+locales/             متن‌های فارسی و انگلیسی
+scripts/             AX-Manager، اسکریپت نصب و مدیریت
 ```
 
-## 🧪 Tests
+## 🧪 تست‌ها
 
 ```bash
 pip install -r requirements.txt --break-system-packages
-python3 tests/test_core.py          # crypto, database, subscriptions, backup/restore, dates, SSRF guard
-python3 tests/scan_strings.py       # every string key exists and every placeholder resolves
-PYTHONPATH=tests/stubs:. python3 tests/test_routing.py   # every button maps to a registered handler
+python3 tests/test_core.py          # رمزنگاری، دیتابیس، اشتراک، بکاپ/ریستور، تاریخ، محافظت SSRF
+python3 tests/scan_strings.py       # همه‌ی کلیدهای متن موجودن و همه‌ی placeholderها درست پر می‌شن
+PYTHONPATH=tests/stubs:. python3 tests/test_routing.py   # هر دکمه به یک هندلر ثبت‌شده وصله
 ```
 
-These cover internal logic with certainty; real Telegram/SSH connectivity is
-covered by the manual checklist in [`TESTING.md`](TESTING.md).
+این‌ها منطق داخلی رو با قطعیت پوشش می‌دن؛ اتصال واقعی تلگرام/SSH توی چک‌لیست دستی [`TESTING.md`](TESTING.md) پوشش داده شده.
 
-## 📜 License & responsibility
+## 📜 مجوز و مسئولیت
 
-MIT-licensed. This bot connects to servers *you* add — you're responsible for
-how it's used and for the credentials you store in it.
+با مجوز MIT منتشر شده. این بات به سرورهایی که *خودت* اضافه می‌کنی وصل می‌شه — مسئولیت نحوه‌ی استفاده و اطلاعات ورودی که داخلش می‌ذاری با خودته.
 
 ---
 
 <div align="center">
-<sub>Built for anyone who wants their servers one Telegram message away.</sub>
+<sub>برای هرکسی که می‌خواد سرورهاش فقط یه پیام تلگرام باهاش فاصله داشته باشن.</sub>
 </div>
