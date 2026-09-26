@@ -131,6 +131,8 @@ def wizard_kb(lang: str, step: str, home: str) -> InlineKeyboardMarkup:
     rows: list[list] = []
     if step == "port":
         rows.append([btn(t("b_port22", lang), "wz:port22", PRIMARY)])
+    elif step == "user":
+        rows.append([btn(t("b_user_root", lang), "wz:userroot", PRIMARY)])
     elif step == "auth":
         rows.append([btn(t("b_auth_pw", lang), "wz:auth:password", PRIMARY), btn(t("b_auth_key", lang), "wz:auth:key", PRIMARY)])
     elif step == "confirm":
@@ -145,6 +147,7 @@ def terminal_kb(lang: str) -> InlineKeyboardMarkup:
         [
             [btn("Ctrl+C", "term:ctrlc", DANGER), btn("Ctrl+D", "term:ctrld"), btn("Tab", "term:tab"), btn("Esc", "term:esc")],
             [btn("◀️", "term:left"), btn("🔼", "term:up"), btn("🔽", "term:down"), btn("▶️", "term:right")],
+            [btn(t("b_enter", lang), "term:enter", SUCCESS)],
             [btn(t("b_clear", lang), "term:clear"), btn(t("b_log", lang), "term:log"), btn(t("b_snip", lang), "term:snip")],
             [btn(t("b_exit", lang), "term:exit", DANGER)],
         ]

@@ -1,4 +1,8 @@
-"""jdate.py - تاریخ شمسی (بدون وابستگی خارجی) و قالب‌بندی زمان بر اساس زبان"""
+"""jdate.py - تاریخ شمسی (بدون وابستگی خارجی) و قالب‌بندی زمان بر اساس زبان
+
+اعداد همیشه با ارقام لاتین (0-9) نمایش داده می‌شوند، حتی در متن فارسی —
+تقویم شمسیه، ولی ارقامش انگلیسیه، چون خواناتره.
+"""
 
 from __future__ import annotations
 
@@ -6,12 +10,6 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from config import settings
-
-_FA = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
-
-
-def fa_digits(text: str) -> str:
-    return text.translate(_FA)
 
 
 def gregorian_to_jalali(gy: int, gm: int, gd: int) -> tuple[int, int, int]:
@@ -40,7 +38,7 @@ def _tz() -> ZoneInfo:
 
 
 def fmt_dt(ts: int | float | None, lang: str, with_time: bool = True) -> str:
-    """فارسی: تاریخ شمسی با ارقام فارسی. انگلیسی: میلادی."""
+    """فارسی: تاریخ شمسی (ارقام لاتین). انگلیسی: میلادی."""
     if not ts:
         return "—"
     dt = datetime.fromtimestamp(ts, _tz())
@@ -49,9 +47,9 @@ def fmt_dt(ts: int | float | None, lang: str, with_time: bool = True) -> str:
         s = f"{jy:04d}/{jm:02d}/{jd:02d}"
         if with_time:
             s += f" · {dt:%H:%M}"
-        return fa_digits(s)
+        return s
     return f"{dt:%Y-%m-%d %H:%M}" if with_time else f"{dt:%Y-%m-%d}"
 
 
 def fmt_num(n: int | str, lang: str) -> str:
-    return fa_digits(str(n)) if lang == "fa" else str(n)
+    return str(n)

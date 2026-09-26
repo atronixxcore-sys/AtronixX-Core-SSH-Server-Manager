@@ -296,6 +296,8 @@ async def cb_control_pad(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         await session.send_escape()
     elif action in ("up", "down", "left", "right"):
         await session.send_arrow(action)
+    elif action == "enter":
+        await session.send_raw(b"\r")
     elif action == "clear":
         await session.send_raw(b"\x0c")
     elif action == "exit":

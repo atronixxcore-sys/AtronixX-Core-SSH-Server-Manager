@@ -17,22 +17,24 @@ CONTAINER="atronixx-core"
 COMPOSE="docker compose"
 
 # ---------------------------------------------------------------- colors
-C_RESET='\033[0m'
-C_DIM='\033[38;5;242m'
-C_TXT='\033[38;5;255m'
-C_ACC='\033[38;5;135m'    # accent (purple) - brand
-C_CYA='\033[38;5;51m'
-C_OK='\033[38;5;82m'
-C_WARN='\033[38;5;214m'
-C_ERR='\033[38;5;196m'
-BOLD='\033[1m'
+# ANSI-C quoting ($'...') so these hold a real ESC byte, not literal backslash
+# text - that way both printf and heredocs/cat render them correctly.
+C_RESET=$'\033[0m'
+C_DIM=$'\033[38;5;242m'
+C_TXT=$'\033[38;5;255m'
+C_ACC=$'\033[38;5;135m'   # accent (purple/magenta) - brand
+C_CYA=$'\033[38;5;51m'
+C_OK=$'\033[38;5;82m'
+C_WARN=$'\033[38;5;214m'
+C_ERR=$'\033[38;5;196m'
+BOLD=$'\033[1m'
 
-say()  { printf "${C_TXT}%s${C_RESET}\n" "$1"; }
-ok()   { printf "${C_OK}✔ %s${C_RESET}\n" "$1"; }
-warn() { printf "${C_WARN}⚠ %s${C_RESET}\n" "$1"; }
-err()  { printf "${C_ERR}✘ %s${C_RESET}\n" "$1" >&2; }
+say()  { printf '%s%s%s\n' "$C_TXT" "$1" "$C_RESET"; }
+ok()   { printf '%s✔ %s%s\n' "$C_OK" "$1" "$C_RESET"; }
+warn() { printf '%s⚠ %s%s\n' "$C_WARN" "$1" "$C_RESET"; }
+err()  { printf '%s✘ %s%s\n' "$C_ERR" "$1" "$C_RESET" >&2; }
 die()  { err "$1"; exit 1; }
-pause() { printf "${C_DIM}Press Enter to continue...${C_RESET}"; read -r _; }
+pause() { printf '%sPress Enter to continue...%s' "$C_DIM" "$C_RESET"; read -r _; }
 
 require_root() { [[ $EUID -eq 0 ]] || die "Please run this as root (sudo)."; }
 
@@ -89,27 +91,34 @@ banner() {
     ram="-"; uptime="-"; mode="-"; users="-"; subs="-"; banned="-"
   fi
 
-  printf "${C_ACC}"
+  local line="──────────────────────────────────────────────────────────────────────────"
+
+  printf '%s' "$C_ACC"
   cat <<'BANNER'
- █████╗ ██╗  ██╗
-██╔══██╗╚██╗██╔╝
-███████║ ╚███╔╝
-██╔══██║ ██╔██╗
-██║  ██║██╔╝ ██╗
-╚═╝  ╚═╝╚═╝  ╚═╝
+ █████╗ ████████╗██████╗  ██████╗ ███╗   ██╗██╗██╗  ██╗██╗  ██╗
+██╔══██╗╚══██╔══╝██╔══██╗██╔═══██╗████╗  ██║██║╚██╗██╔╝╚██╗██╔╝
+███████║   ██║   ██████╔╝██║   ██║██╔██╗ ██║██║ ╚███╔╝  ╚███╔╝
+██╔══██║   ██║   ██╔══██╗██║   ██║██║╚██╗██║██║ ██╔██╗  ██╔██╗
+██║  ██║   ██║   ██║  ██║╚██████╔╝██║ ╚████║██║██╔╝ ██╗██╔╝ ██╗
+╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
 BANNER
-  printf "${C_RESET}"
-  printf "${C_TXT}${BOLD}SSH SERVER MANAGER${C_RESET} ${C_DIM}· powered by AtronixX${C_RESET}\n"
-  printf "${C_DIM}────────────────────────────────────────────────────${C_RESET}\n"
+  printf '%s' "$C_RESET"
+  printf '%s%s' "$C_DIM" "$line"; printf '%s\n' "$C_RESET"
+  printf ' %s%sSSH SERVER MANAGER%s   %sCLI: AX-Manager%s\n' "$C_TXT" "$BOLD" "$C_RESET" "$C_DIM" "$C_RESET"
+  printf '%s%s' "$C_DIM" "$line"; printf '%s\n' "$C_RESET"
 
   local state_color="$C_ERR"
   [[ "$state" == "running" ]] && state_color="$C_OK"
-  printf " ${C_TXT}● BOT${C_RESET}       ${state_color}%-14s${C_RESET} ${C_TXT}● MODE${C_RESET}   ${C_CYA}%s${C_RESET}\n" "${state^^}" "$mode"
-  printf " ${C_TXT}● USERS${C_RESET}     ${C_OK}%-14s${C_RESET} ${C_TXT}● SUBS${C_RESET}   ${C_OK}%s${C_RESET}\n" "$users" "$subs"
-  printf " ${C_TXT}● UPTIME${C_RESET}    ${C_CYA}%-14s${C_RESET} ${C_TXT}● RAM${C_RESET}    ${C_CYA}%s${C_RESET}\n" "$uptime" "$ram"
-  printf "${C_DIM}────────────────────────────────────────────────────${C_RESET}\n"
-  printf " ${C_TXT}📡 Channel: ${C_ACC}@AtronixX_Core${C_RESET}   ${C_TXT}💬 Support: ${C_ACC}@AtronixX_Support${C_RESET}\n"
-  printf "${C_DIM}────────────────────────────────────────────────────${C_RESET}\n"
+  printf ' %s●%s BOT       %s%-14s%s %s●%s MODE   %s%s%s\n' \
+    "$C_TXT" "$C_RESET" "$state_color" "${state^^}" "$C_RESET" "$C_TXT" "$C_RESET" "$C_CYA" "$mode" "$C_RESET"
+  printf ' %s●%s USERS     %s%-14s%s %s●%s SUBS   %s%s%s\n' \
+    "$C_TXT" "$C_RESET" "$C_OK" "$users" "$C_RESET" "$C_TXT" "$C_RESET" "$C_OK" "$subs" "$C_RESET"
+  printf ' %s●%s UPTIME    %s%-14s%s %s●%s RAM    %s%s%s\n' \
+    "$C_TXT" "$C_RESET" "$C_CYA" "$uptime" "$C_RESET" "$C_TXT" "$C_RESET" "$C_CYA" "$ram" "$C_RESET"
+  printf '%s%s' "$C_DIM" "$line"; printf '%s\n' "$C_RESET"
+  printf ' %s📡 Channel: %s@AtronixX_Core%s   %s💬 Support: %s@AtronixX_Support%s\n' \
+    "$C_TXT" "$C_ACC" "$C_RESET" "$C_TXT" "$C_ACC" "$C_RESET"
+  printf '%s%s' "$C_DIM" "$line"; printf '%s\n' "$C_RESET"
 }
 
 # ---------------------------------------------------------------- setup helpers
@@ -186,8 +195,31 @@ install_self() {
 }
 
 # ---------------------------------------------------------------- commands
+fix_data_permissions() {
+  # The bot runs as a non-root user inside the container; make sure it can
+  # actually write to the mounted data directory (secret.key, database...).
+  local uid
+  uid=$(docker run --rm "$IMAGE" id -u 2>/dev/null) || return 0
+  [[ "$uid" =~ ^[0-9]+$ ]] || return 0
+  chown -R "${uid}:${uid}" "$INSTALL_DIR/data" 2>/dev/null || true
+}
+
 cmd_install() {
   require_root
+  clear
+  printf '%s' "$C_ACC"
+  cat <<'BANNER'
+ █████╗ ████████╗██████╗  ██████╗ ███╗   ██╗██╗██╗  ██╗██╗  ██╗
+██╔══██╗╚══██╔══╝██╔══██╗██╔═══██╗████╗  ██║██║╚██╗██╔╝╚██╗██╔╝
+███████║   ██║   ██████╔╝██║   ██║██╔██╗ ██║██║ ╚███╔╝  ╚███╔╝
+██╔══██║   ██║   ██╔══██╗██║   ██║██║╚██╗██║██║ ██╔██╗  ██╔██╗
+██║  ██║   ██║   ██║  ██║╚██████╔╝██║ ╚████║██║██╔╝ ██╗██╔╝ ██╗
+╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+BANNER
+  printf '%s\n' "$C_RESET"
+  say "SSH Server Manager · setting things up..."
+  echo
+
   ensure_docker
   ensure_project_files
   if [[ ! -f "$INSTALL_DIR/.env" ]]; then
@@ -197,8 +229,11 @@ cmd_install() {
   fi
   install_self
   cd "$INSTALL_DIR"
-  say "Pulling the image and starting AtronixX-Core..."
-  $COMPOSE pull && $COMPOSE up -d
+  say "Pulling the image..."
+  $COMPOSE pull
+  fix_data_permissions
+  say "Starting AtronixX-Core..."
+  $COMPOSE up -d
   ok "Installed and running."
   echo
   say "Manage it anytime by running: ${BOLD}AX-Manager${C_RESET}"
@@ -212,7 +247,9 @@ cmd_update() {
   require_root
   cd "$INSTALL_DIR" 2>/dev/null || die "Not installed yet."
   say "Pulling the latest image..."
-  $COMPOSE pull && $COMPOSE up -d
+  $COMPOSE pull
+  fix_data_permissions
+  $COMPOSE up -d
   ok "Updated."
 }
 

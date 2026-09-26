@@ -298,6 +298,11 @@ async def cb_wizard(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         d["port"] = 22
         flow["step"] = "user"
         await _render(context.bot, chat_id, flow, lang)
+    elif action == "userroot":
+        await q.answer()
+        d["username"] = "root"
+        flow["step"] = "auth"
+        await _render(context.bot, chat_id, flow, lang)
     elif action.startswith("auth:"):
         await q.answer()
         d["auth"] = action.split(":")[1]
