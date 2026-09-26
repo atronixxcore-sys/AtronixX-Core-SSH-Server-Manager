@@ -2,7 +2,7 @@
 
 # 🛰 AtronixX-Core
 
-### Termius, reborn as a Telegram bot.
+### Control your infrastructure from inside Telegram.
 
 A full SSH terminal, file manager, and server monitor for your infrastructure —
 running live inside Telegram. Dockerized, sandboxed, and built for servers that
